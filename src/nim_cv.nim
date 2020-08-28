@@ -1,6 +1,18 @@
-{.compile: "glcv/src/win.c".}
+
 {.passC: "-DCV_NO_MAIN -DCV_EXPLICIT_ENTRY".}
-{.passL: "-lgdi32 -lopengl32 -luser32".}
+
+when defined(windows):
+  {.passL: "-lgdi32 -lopengl32 -luser32".}
+  {.compile: "glcv/src/win.c".}
+elif defined(macosx):
+  discard
+elif defined(wayland):
+  {.passL: gorge("pkg-config wayland-client xkbcommon wayland-egl egl gl --cflags --libs").}
+  {.compile: "glcv/src/wl.c".}
+else:
+  {.passL: "-lX11 -lGL -lXcursor".}
+  {.compile: "glcv/src/xlib.c".}
+
 type
   cveventtype* = enum
     cveNone, cvqName, cvqLogger, cvqXPos, cvqYPos, cvqWidth, cvqHeight,
