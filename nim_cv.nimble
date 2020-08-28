@@ -13,3 +13,10 @@ bin           = @["nim_cv"]
 # Dependencies
 
 requires "nim >= 1.3.5"
+
+
+task simple, "Runs the simple example":
+  exec "nim c -r example/simple"
+
+task test, "Runs the test example":
+  exec "nim c -r example/test"
