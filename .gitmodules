@@ -1,0 +1,3 @@
+[submodule "src/glcv"]
+	path = src/glcv
+	url = https://github.com/jacereda/glcv
