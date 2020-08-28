@@ -1,5 +1,4 @@
-import nim_cv
-import unicode
+import nim_cv, unicode
 
 proc init() =
   echo "init"
@@ -11,12 +10,12 @@ proc glinit() =
   echo "glinit"
 
 proc down(k: cvkey) =
-  echo "down ", keyName(k)
+  echo "down ", k.keyName
 
 var cur : array[0..32*32*4-1, uint8]
 
 proc up(k: cvkey): int =
-  echo "up ", keyName(k)
+  echo "up ", k.keyName
   result = 1
   case k:
     of cvkEscape: cvQuit()
@@ -42,16 +41,16 @@ proc resize(w: uint, h: uint) =
   echo "resize ", w, " ", h
 
 proc update() =
-  if cvPressed(cvkA):
+  if cvkA.cvPressed:
     echo "A pressed"
-  if cvReleased(cvkA):
+  if cvkA.cvReleased:
     echo "A released"
 
 proc event(e: ptr ev) : int {.cdecl.} =
   result = 1
-  let t = evType(e)
+  let t = e.evType
   if t != cveUpdate:
-    echo "got event ", evName(e), " ", evArg0(e), " ", evArg1(e)
+    echo "got event ", e.evName, " ", e.evArg0, " ", e.evArg1
   case t:
     of cvqName: result = cast[int]("test")
     of cvqXPos: result = 50
@@ -61,12 +60,12 @@ proc event(e: ptr ev) : int {.cdecl.} =
     of cveInit: init()
     of cveTerm: term()
     of cveGlInit: glinit()
-    of cveDown: down(evWhich(e))
-    of cveUp: result = up(evWhich(e))
-    of cveUnicode: unicode(cast[Rune](evUnicode(e)))
-    of cveMotion: motion(evX(e), evY(e))
+    of cveDown: down(e.evWhich)
+    of cveUp: result = up(e.evWhich)
+    of cveUnicode: unicode(cast[Rune](e.evUnicode))
+    of cveMotion: motion(e.evX, e.evY)
     of cveClose: close()
-    of cveResize: resize(evWidth(e), evHeight(e))
+    of cveResize: resize(e.evWidth, e.evHeight)
     of cveUpdate: update()
     else:
       result = 0
