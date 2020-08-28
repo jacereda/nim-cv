@@ -5,7 +5,9 @@ when defined(windows):
   {.passL: "-lgdi32 -lopengl32 -luser32".}
   {.compile: "glcv/src/win.c".}
 elif defined(macosx):
-  discard
+  {.passC: "-fobjc-arc".}
+  {.passL: "-fobjc-arc -framework OpenGL -framework AppKit".}
+  {.compile: "glcv/src/cocoaarc.m".}
 elif defined(wayland):
   {.passL: gorge("pkg-config wayland-client xkbcommon wayland-egl egl gl --cflags --libs").}
   {.compile: "glcv/src/wl.c".}
