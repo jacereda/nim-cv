@@ -41,7 +41,7 @@ proc cvMouseX*(): cint {.importc.}
 proc cvMouseY*(): cint {.importc.}
 proc cvPressed*(k: cvkey): bool {.importc.}
 proc cvReleased*(k: cvkey): bool {.importc.}
-proc cvSetCursor*(rgba: array[0..32*32*4-1, uint8], hotx: cint, hoty: cint) {.importc.}
+proc cvSetCursor*(rgba: array[32*32*4, uint8], hotx: cint, hoty: cint) {.importc.}
 proc cvHideCursor*() {.importc.}
 proc cvDefaultCursor*() {.importc.}
 proc cvShowKeyboard*() {.importc.}

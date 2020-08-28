@@ -12,7 +12,7 @@ proc glinit() =
 proc down(k: cvkey) =
   echo "down ", k.keyName
 
-var cur : array[0..32*32*4-1, uint8]
+var cur : array[32*32*4, uint8]
 
 proc up(k: cvkey): int =
   echo "up ", k.keyName
