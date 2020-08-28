@@ -7,7 +7,8 @@ type
     cveInit, cveTerm, cveGLInit, cveGLTerm, cveDown, cveUp, cveUnicode,
     cveMotion, cveClose, cveInvoke, cveResize, cveUpdate, cveShowKeyboard,
     cveHideKeyboard, cveSetCursor, cveDefaultCursor, cveFullscreen,
-    cveWindowed, cveQuit, cveMax, cveInvalid=0x10000
+    cveWindowed, cveQuit, cveMax,
+    cveInvalid=0x10000
   cvkey* = enum
     cvkNone, cvkMouseWheelUp, cvkMouseWheelDown, cvkMouseLeft, cvkMouseRight,
     cvkMouseMiddle, cvkA, cvkB, cvkC, cvkD, cvkE, cvkF, cvkG, cvkH, cvkI, cvkJ,
@@ -26,7 +27,8 @@ type
     cvkF14, cvkF15, cvkF16, cvkF17, cvkF18, cvkF19, cvkF20, cvkHelp, cvkHome,
     cvkPageUp, cvkForwardDelete, cvkEnd, cvkPageDown, cvkLeftArrow,
     cvkRightRrrow, cvkDownArrow, cvkUpArrow, cvkScroll, cvkNumLock, cvkClear,
-    cvkSysReq, cvkPause, cvkCamera, cvkCenter, cvkAt, cvkSym, cvkMax, cvkInvalid=0x10000
+    cvkSysReq, cvkPause, cvkCamera, cvkCenter, cvkAt, cvkSym, cvkMax,
+    cvkInvalid=0x10000
   cvunicode* = cuint
   ev* {.bycopy.} = object
     `type`*: uint
@@ -34,7 +36,6 @@ type
 
 
 proc cvRun*(handler: proc (e: ptr ev): int {.cdecl}): int {.importc.}
-
 proc cvWidth*(): cuint {.importc.}
 proc cvHeight*(): cuint {.importc.}
 proc cvMouseX*(): cint {.importc.}
