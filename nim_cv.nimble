@@ -12,7 +12,8 @@ skipDirs      = @["examples", "tests"]
 
 # Dependencies
 
-requires "nim >= 1.3.5"
+requires "nim >= 1.2.6"
+requires "opengl >= 1.2.6"
 
 
 task simple, "Runs the simple example":
@@ -20,3 +21,6 @@ task simple, "Runs the simple example":
 
 task test, "Runs the test example":
   exec "nim c -r examples/test"
+
+task cube, "Runs the cube example":
+  exec "nim c -r examples/cube"

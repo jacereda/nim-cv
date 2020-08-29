@@ -52,7 +52,7 @@ proc event(e: ptr ev) : int {.cdecl.} =
   if t != cveUpdate:
     echo "got event ", e.evName, " ", e.evArg0, " ", e.evArg1
   case t:
-    of cvqName: result = cast[int]("test")
+    of cvqName: result = cast[int]("test".cstring)
     of cvqXPos: result = 50
     of cvqYPos: result = 50
     of cvqWidth: result = 640
@@ -62,7 +62,7 @@ proc event(e: ptr ev) : int {.cdecl.} =
     of cveGlInit: glinit()
     of cveDown: down(e.evWhich)
     of cveUp: result = up(e.evWhich)
-    of cveUnicode: unicode(cast[Rune](e.evUnicode))
+    of cveUnicode: unicode(e.evUnicode.Rune)
     of cveMotion: motion(e.evX, e.evY)
     of cveClose: close()
     of cveResize: resize(e.evWidth, e.evHeight)

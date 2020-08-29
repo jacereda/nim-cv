@@ -40,7 +40,7 @@ type
     cvkF4, cvkF5, cvkF6, cvkF7, cvkF8, cvkF9, cvkF10, cvkF11, cvkF12, cvkF13,
     cvkF14, cvkF15, cvkF16, cvkF17, cvkF18, cvkF19, cvkF20, cvkHelp, cvkHome,
     cvkPageUp, cvkForwardDelete, cvkEnd, cvkPageDown, cvkLeftArrow,
-    cvkRightRrrow, cvkDownArrow, cvkUpArrow, cvkScroll, cvkNumLock, cvkClear,
+    cvkRightArrow, cvkDownArrow, cvkUpArrow, cvkScroll, cvkNumLock, cvkClear,
     cvkSysReq, cvkPause, cvkCamera, cvkCenter, cvkAt, cvkSym, cvkMax,
     cvkInvalid=0x10000
   cvunicode* = cuint
