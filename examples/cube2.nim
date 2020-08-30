@@ -137,7 +137,7 @@ void main() {
 
 proc resize(w: uint, h: uint) =
   glViewport(0, 0, w.GLsizei, h.GLsizei)
-  proj = perspectiveRH(45.0f, w.float / h.float, 0.1f, 100000.0f)
+  proj = perspective(45.0f, w.float / h.float, 0.1f, 100000.0f)
 
 proc update() =
   if cvPressed cvkLeftArrow: posx -= 0.1f
@@ -147,7 +147,6 @@ proc update() =
   if cvPressed cvkX: posz -= 0.1f
   if cvPressed cvkZ: posz += 0.1f
 
-  var color = vec3(0.4f, 0.0f, 0.5f)
   let model = mat4f()
   .translate(posx, posy, posz)
   .rotate(2.0 * PI * cvMouseY().int.toFloat / cvHeight().int.toFloat, 1, 0, 0)
