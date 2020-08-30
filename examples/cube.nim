@@ -1,6 +1,5 @@
 import nim_cv, unicode, opengl, opengl/glu
 
-var quadric: GLUquadric
 var posx : float
 var posy : float
 var posz : float = -7
