@@ -22,19 +22,19 @@ proc echoMsg(msg: logMsg) =
 
 proc statusShader(shader: GLuint) =
   var status: GLint
-  glGetShaderiv(shader, GL_COMPILE_STATUS, status.addr);
+  glGetShaderiv(shader, GL_COMPILE_STATUS, status.addr)
   if status != GL_TRUE.ord:
     var msg: logMsg
-    glGetShaderInfoLog(shader, msg.buf.sizeof.GLsizei, msg.sz.addr, msg.buf[0].addr);
+    glGetShaderInfoLog(shader, msg.buf.sizeof.GLsizei, msg.sz.addr, msg.buf[0].addr)
     echoMsg msg
 
 
 proc statusProgram(prg: GLuint) =
   var status: GLint
-  glGetProgramiv(prg, GL_LINK_STATUS, status.addr);
+  glGetProgramiv(prg, GL_LINK_STATUS, status.addr)
   if status != GL_TRUE.ord:
     var msg : logMsg
-    glGetProgramInfoLog(prg, msg.buf.sizeof.GLsizei, msg.sz.addr, msg.buf[0].addr);
+    glGetProgramInfoLog(prg, msg.buf.sizeof.GLsizei, msg.sz.addr, msg.buf[0].addr)
     echoMsg msg
 
 
@@ -104,7 +104,7 @@ void main() {
     b: GLfloat,
     a: GLfloat,
     ]
-  var vert : array[8, Vertex];
+  var vert : array[8, Vertex]
   for i in 0..<8:
     vert[i].x = if (i and 1) != 0: 1.0f else: -1.0f
     vert[i].y = if (i and 2) != 0: 1.0f else: -1.0f
