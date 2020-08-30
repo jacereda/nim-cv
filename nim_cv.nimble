@@ -26,5 +26,5 @@ task test, "Runs the test example":
 task cube, "Runs the cube example":
   exec "nim c -r examples/cube"
 
-task cube2, "Runs the cube2 example":
-  exec "nim c -r examples/cube2"
+task cubeimm, "Runs the cubeimm example":
+  exec "nim c -r examples/cubeimm"
