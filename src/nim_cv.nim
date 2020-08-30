@@ -12,7 +12,7 @@ elif defined(wayland):
   {.passL: gorge("pkg-config wayland-client xkbcommon wayland-egl egl gl --cflags --libs").}
   {.compile: "glcv/src/wl.c".}
 else:
-  {.passL: "-lX11 -lGL -lXcursor".}
+  {.passL: "-lX11 -lGL -lXcursor -lXrender".}
   {.compile: "glcv/src/xlib.c".}
 
 type
