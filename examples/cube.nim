@@ -44,19 +44,21 @@ proc glinit() =
   glEnable(GL_CULL_FACE)
   glEnable(GL_DEPTH_TEST)
 
-
+  let glslver =
+    when defined(wayland): "#version 300 es"
+    else: "#version 150"
   var vertex = glCreateShader(GL_VERTEX_SHADER)
-  var vsrc = allocCstringArray(["""
-#version 150
-precision highp float;
-in vec3 aPos;
-in vec4 aCol;
-out vec4 color;
-uniform mat4 uMVP;
-void main() {
-  gl_Position = uMVP * vec4(aPos, 1.0);
-  color = aCol;
-}
+  var vsrc = allocCstringArray([glslver & """
+
+    precision mediump float;
+    in vec3 aPos;
+    in vec4 aCol;
+    out vec4 color;
+    uniform mat4 uMVP;
+    void main() {
+      gl_Position = uMVP * vec4(aPos, 1.0);
+      color = aCol;
+    }
   """])
   glShaderSource(vertex, 1, vsrc, nil)
   deallocCstringArray(vsrc)
@@ -64,14 +66,14 @@ void main() {
   statusShader(vertex)
 
   var fragment = glCreateShader(GL_FRAGMENT_SHADER)
-  var fsrc = allocCstringArray(["""
-#version 150
-precision highp float;
-in vec4 color;
-out vec4 FragColor;
-void main() {
-  FragColor = color;
-}
+  var fsrc = allocCstringArray([glslver & """
+
+    precision mediump float;
+    in vec4 color;
+    out vec4 FragColor;
+    void main() {
+      FragColor = color;
+    }
   """])
   glShaderSource(fragment, 1, fsrc, nil)
   deallocCstringArray(fsrc)
