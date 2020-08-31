@@ -47,7 +47,7 @@ proc glinit() =
 
   var vertex = glCreateShader(GL_VERTEX_SHADER)
   var vsrc = allocCstringArray(["""
-#version 300 es
+#version 150
 precision highp float;
 in vec3 aPos;
 in vec4 aCol;
@@ -65,7 +65,7 @@ void main() {
 
   var fragment = glCreateShader(GL_FRAGMENT_SHADER)
   var fsrc = allocCstringArray(["""
-#version 300 es
+#version 150
 precision highp float;
 in vec4 color;
 out vec4 FragColor;
@@ -150,10 +150,11 @@ proc update() =
   let model = mat4f()
   .translate(posx, posy, posz)
   .rotate(2.0 * PI * cvMouseY().int.toFloat / cvHeight().int.toFloat, 1, 0, 0)
-  .rotate(2.0 * PI * cvMouseX().int.toFloat / cvWidth().int.toFloat, 0, 1, 0)
+  .rotate(-2.0 * PI * cvMouseX().int.toFloat / cvWidth().int.toFloat, 0, 1, 0)
   let view =  mat4f()
   var mvp = proj * view * model
 
+  glClearColor(0,0,0,0)
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
   glUseProgram(program)
   glUniformMatrix4fv(uMVP, 1, false, mvp.caddr)
