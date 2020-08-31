@@ -150,7 +150,7 @@ proc update() =
   if cvPressed cvkX: posz -= 0.1f
   if cvPressed cvkZ: posz += 0.1f
   if cvPressed cvkT: trans -= 0.01f
-  if cvPressed cvkR: trans += 0.01f
+  if cvPressed cvkO: trans += 0.01f
   trans = clamp(trans, 0, 1)
 
   let model = mat4f()
