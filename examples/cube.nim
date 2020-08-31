@@ -8,6 +8,7 @@ var program : GLuint
 var uMVP : GLint
 var mesh: tuple[vbo, vao, ebo: GLuint, len: GLint]
 var proj : Mat4[float32]
+var trans : GLdouble
 
 type
   logMsg = object
@@ -148,6 +149,9 @@ proc update() =
   if cvPressed cvkUpArrow: posy += 0.1f
   if cvPressed cvkX: posz -= 0.1f
   if cvPressed cvkZ: posz += 0.1f
+  if cvPressed cvkT: trans -= 0.01f
+  if cvPressed cvkR: trans += 0.01f
+  trans = clamp(trans, 0, 1)
 
   let model = mat4f()
   .translate(posx, posy, posz)
@@ -156,7 +160,7 @@ proc update() =
   let view =  mat4f()
   var mvp = proj * view * model
 
-  glClearColor(0,0,0,0)
+  glClearColor(0,0,0,trans)
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
   glUseProgram(program)
   glUniformMatrix4fv(uMVP, 1, false, mvp.caddr)
