@@ -48,8 +48,8 @@ proc glinit() =
   let glslver =
     when defined(wayland): "#version 300 es"
     else: "#version 150"
-  var vertex = glCreateShader(GL_VERTEX_SHADER)
-  var vsrc = allocCstringArray([glslver & """
+  let vertex = glCreateShader(GL_VERTEX_SHADER)
+  let vsrc = allocCstringArray([glslver & """
 
     precision mediump float;
     in vec3 aPos;
@@ -66,8 +66,8 @@ proc glinit() =
   glCompileShader(vertex)
   statusShader(vertex)
 
-  var fragment = glCreateShader(GL_FRAGMENT_SHADER)
-  var fsrc = allocCstringArray([glslver & """
+  let fragment = glCreateShader(GL_FRAGMENT_SHADER)
+  let fsrc = allocCstringArray([glslver & """
 
     precision mediump float;
     in vec4 color;
