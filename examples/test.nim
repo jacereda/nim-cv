@@ -1,4 +1,4 @@
-import nim_cv, unicode
+import cv, unicode
 
 proc init() =
   echo "init"

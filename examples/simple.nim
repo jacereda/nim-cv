@@ -1,4 +1,4 @@
-import nim_cv
+import cv
 
 proc update() =
   discard

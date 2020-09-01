@@ -1,4 +1,4 @@
-import nim_cv, opengl, glm
+import cv, opengl, glm
 
 var posx : float32
 var posy : float32

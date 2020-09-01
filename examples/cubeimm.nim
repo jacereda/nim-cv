@@ -1,4 +1,4 @@
-import nim_cv, unicode, opengl, opengl/glu
+import cv, unicode, opengl, opengl/glu
 
 var posx : float
 var posy : float
