@@ -6,6 +6,7 @@ description   = "Canvas event handling library for GL/Vulkan"
 license       = "MIT"
 srcDir        = "src"
 installExt    = @["nim"]
+installDirs   = @["glcv"]
 skipDirs      = @["examples", "tests"]
 
 
