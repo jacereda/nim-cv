@@ -1,6 +1,9 @@
 
 {.passC: "-DCV_NO_MAIN -DCV_EXPLICIT_ENTRY".}
 
+when defined(vulkan):
+  {.passC: "-DCV_NO_CONTEXT".}
+
 when defined(windows):
   {.passL: "-lgdi32 -lopengl32 -luser32 -ldwmapi".}
   {.compile: "glcv/src/win.c".}
