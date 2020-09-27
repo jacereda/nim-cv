@@ -47,38 +47,38 @@ type
     cvkSysReq, cvkPause, cvkCamera, cvkCenter, cvkAt, cvkSym, cvkMax,
     cvkInvalid=0x10000
   cvunicode* = cuint
-  ev* {.bycopy.} = object
+  ev* {.byref.} = object
     `type`*: uint
     p*: array[2, uint]
 
 
-proc cvRun*(handler: proc (e: ptr ev): int {.cdecl}): int {.importc.}
-proc cvWidth*(): cuint {.importc.}
-proc cvHeight*(): cuint {.importc.}
-proc cvMouseX*(): cint {.importc.}
-proc cvMouseY*(): cint {.importc.}
-proc cvPressed*(k: cvkey): bool {.importc.}
-proc cvReleased*(k: cvkey): bool {.importc.}
-proc cvSetCursor*(rgba: array[32*32*4, uint8], hotx: cint, hoty: cint) {.importc.}
-proc cvHideCursor*() {.importc.}
-proc cvDefaultCursor*() {.importc.}
-proc cvShowKeyboard*() {.importc.}
-proc cvHideKeyboard*() {.importc.}
-proc cvFullscreen*() {.importc.}
-proc cvWindowed*() {.importc.}
-proc cvQuit*() {.importc.}
-proc evType*(e: ptr ev): cveventtype {.importc.}
-proc evName*(e: ptr ev): cstring {.importc.}
-proc evWidth*(e: ptr ev): cuint {.importc.}
-proc evHeight*(e: ptr ev): cuint {.importc.}
-proc evWhich*(e: ptr ev): cvkey {.importc.}
-proc evUnicode*(e: ptr ev): cvunicode {.importc.}
-proc evArg0*(e: ptr ev): int {.importc.}
-proc evArg1*(e: ptr ev): int {.importc.}
-proc evX*(e: ptr ev): cint {.importc.}
-proc evY*(e: ptr ev): cint {.importc.}
-proc evArgC*(e: ptr ev): cint {.importc.}
-proc evArgV*(e: ptr ev): cstringArray {.importc.}
-proc evMethod*(e: ptr ev): cstring {.importc.}
-proc cvInject*(e: cveventtype; a1: int; a2: int): int {.importc.}
-proc keyName*(k: cvkey): cstring {.importc.}
+proc run*(handler: proc (e: ev): int {.cdecl}): int {.importc: "cvRun".}
+proc canvasWidth*(): cuint {.importc: "cvWidth".}
+proc canvasHeight*(): cuint {.importc: "cvHeight".}
+proc mouseX*(): cint {.importc: "cvMouseX".}
+proc mouseY*(): cint {.importc: "cvMouseY".}
+proc keyPressed*(k: cvkey): bool {.importc: "cvPressed".}
+proc keyReleased*(k: cvkey): bool {.importc: "cvReleased".}
+proc cursorSet*(rgba: array[32*32*4, uint8], hotx: cint, hoty: cint) {.importc: "cvSetCursor".}
+proc cursorHide*() {.importc: "cvHideCursor".}
+proc cursorDefault*() {.importc: "cvDefaultCursor".}
+proc keyboardShow*() {.importc: "cvShowKeyboard".}
+proc keyboardHide*() {.importc: "cvHideKeyboard".}
+proc canvasFullscreen*() {.importc: "cvFullscreen".}
+proc canvasWindowed*() {.importc: "cvWindowed".}
+proc quit*() {.importc: "cvQuit".}
+proc eventType*(e: ev): cveventtype {.importc: "evType".}
+proc eventName*(e: ev): cstring {.importc: "evName".}
+proc eventWidth*(e: ev): cuint {.importc: "evWidth".}
+proc eventHeight*(e: ev): cuint {.importc: "evHeight".}
+proc eventWhich*(e: ev): cvkey {.importc: "evWhich".}
+proc eventUnicode*(e: ev): cvunicode {.importc: "evUnicode".}
+proc eventArg0*(e: ev): int {.importc: "evArg0".}
+proc eventArg1*(e: ev): int {.importc: "evArg1".}
+proc eventX*(e: ev): cint {.importc: "evX".}
+proc eventY*(e: ev): cint {.importc: "evY".}
+proc eventArgC*(e: ev): cint {.importc: "evArgC".}
+proc eventArgV*(e: ev): cstringArray {.importc: "evArgV".}
+proc eventMethod*(e: ev): cstring {.importc: "evMethod".}
+proc eventInject*(e: cveventtype; a1: int; a2: int): int {.importc: "cvInject".}
+proc keyName*(k: cvkey): cstring {.importc: "keyName".}

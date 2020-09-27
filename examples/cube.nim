@@ -143,20 +143,20 @@ proc resize(w: uint, h: uint) =
   proj = perspective(45.0f, w.float / h.float, 0.1f, 100000.0f)
 
 proc update() =
-  if cvPressed cvkLeftArrow: posx -= 0.1f
-  if cvPressed cvkRightArrow: posx += 0.1f
-  if cvPressed cvkDownArrow: posy -= 0.1f
-  if cvPressed cvkUpArrow: posy += 0.1f
-  if cvPressed cvkX: posz -= 0.1f
-  if cvPressed cvkZ: posz += 0.1f
-  if cvPressed cvkT: trans -= 0.01f
-  if cvPressed cvkO: trans += 0.01f
+  if keyPressed cvkLeftArrow: posx -= 0.1f
+  if keyPressed cvkRightArrow: posx += 0.1f
+  if keyPressed cvkDownArrow: posy -= 0.1f
+  if keyPressed cvkUpArrow: posy += 0.1f
+  if keyPressed cvkX: posz -= 0.1f
+  if keyPressed cvkZ: posz += 0.1f
+  if keyPressed cvkT: trans -= 0.01f
+  if keyPressed cvkO: trans += 0.01f
   trans = clamp(trans, 0, 1)
 
   let model = mat4f()
   .translate(posx, posy, posz)
-  .rotate(2.0 * PI * cvMouseY().int.toFloat / cvHeight().int.toFloat, 1, 0, 0)
-  .rotate(-2.0 * PI * cvMouseX().int.toFloat / cvWidth().int.toFloat, 0, 1, 0)
+  .rotate(2.0 * PI * mouseY().int.toFloat / canvasHeight().int.toFloat, 1, 0, 0)
+  .rotate(-2.0 * PI * mouseX().int.toFloat / canvasWidth().int.toFloat, 0, 1, 0)
   let view =  mat4f()
   var mvp = proj * view * model
 
@@ -167,18 +167,18 @@ proc update() =
   glBindVertexArray(mesh.vao)
   glDrawElements(GL_TRIANGLES, mesh.len, GL_UNSIGNED_INT, nil)
 
-proc event(e: ptr ev) : int {.cdecl.} =
+proc event(e: ev) : int {.cdecl.} =
   result = 1
-  case e.evType:
+  case e.eventType:
     of cvqName: result = cast[int]("cube".cstring)
     of cvqXPos: result = 50
     of cvqYPos: result = 50
     of cvqWidth: result = 640
     of cvqHeight: result = 480
     of cveGlInit: glinit()
-    of cveResize: resize(e.evWidth, e.evHeight)
+    of cveResize: resize(e.eventWidth, e.eventHeight)
     of cveUpdate: update()
     else:
       result = 0
 
-discard cvRun event
+discard run event

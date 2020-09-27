@@ -18,12 +18,12 @@ proc up(k: cvkey): int =
   echo "up ", k.keyName
   result = 1
   case k:
-    of cvkEscape: cvQuit()
-    of cvkH: cvHideCursor()
-    of cvkD: cvDefaultCursor()
-    of cvkC: cvSetCursor(cur, 0, 0)
-    of cvkF: cvFullScreen()
-    of cvkW: cvWindowed()
+    of cvkEscape: cv.quit()
+    of cvkH: cursorHide()
+    of cvkD: cursorDefault()
+    of cvkC: cursorSet(cur, 0, 0)
+    of cvkF: canvasFullscreen()
+    of cvkW: canvasWindowed()
     else:
       result = 0
 
@@ -35,22 +35,22 @@ proc motion(x: int, y: int) =
 
 proc close() =
   echo "close"
-  cvQuit()
+  cv.quit()
 
 proc resize(w: uint, h: uint) =
   echo "resize ", w, " ", h
 
 proc update() =
-  if cvkA.cvPressed:
+  if cvkA.keyPressed:
     echo "A pressed"
-  if cvkA.cvReleased:
+  if cvkA.keyReleased:
     echo "A released"
 
-proc event(e: ptr ev) : int {.cdecl.} =
+proc event(e: ev) : int {.cdecl.} =
   result = 1
-  let t = e.evType
+  let t = e.eventType
   if t != cveUpdate:
-    echo "got event ", e.evName, " ", e.evArg0, " ", e.evArg1
+    echo "got event ", e.eventName, " ", e.eventArg0, " ", e.eventArg1
   case t:
     of cvqName: result = cast[int]("test".cstring)
     of cvqXPos: result = 50
@@ -60,14 +60,14 @@ proc event(e: ptr ev) : int {.cdecl.} =
     of cveInit: init()
     of cveTerm: term()
     of cveGlInit: glinit()
-    of cveDown: down(e.evWhich)
-    of cveUp: result = up(e.evWhich)
-    of cveUnicode: unicode(e.evUnicode.Rune)
-    of cveMotion: motion(e.evX, e.evY)
+    of cveDown: down(e.eventWhich)
+    of cveUp: result = up(e.eventWhich)
+    of cveUnicode: unicode(e.eventUnicode.Rune)
+    of cveMotion: motion(e.eventX, e.eventY)
     of cveClose: close()
-    of cveResize: resize(e.evWidth, e.evHeight)
+    of cveResize: resize(e.eventWidth, e.eventHeight)
     of cveUpdate: update()
     else:
       result = 0
 
-discard cvRun event
+discard run event

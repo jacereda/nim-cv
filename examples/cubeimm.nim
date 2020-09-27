@@ -1,4 +1,4 @@
-import cv, unicode, opengl, opengl/glu
+import cv, opengl, opengl/glu
 
 var posx : float
 var posy : float
@@ -16,17 +16,17 @@ proc resize(w: uint, h: uint) =
   gluPerspective(45.0, w.float / h.float, 0.1, 100.0)
 
 proc update() =
-  if cvPressed cvkLeftArrow: posx -= 0.1
-  if cvPressed cvkRightArrow: posx += 0.1
-  if cvPressed cvkDownArrow: posy -= 0.1
-  if cvPressed cvkUpArrow: posy += 0.1
+  if keyPressed cvkLeftArrow: posx -= 0.1
+  if keyPressed cvkRightArrow: posx += 0.1
+  if keyPressed cvkDownArrow: posy -= 0.1
+  if keyPressed cvkUpArrow: posy += 0.1
 
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
   glMatrixMode(GL_MODELVIEW)
   glLoadIdentity()
   glTranslatef(posx, posy, posz)
-  glRotatef(360.0 * cvMouseY().int.toFloat / cvHeight().int.toFloat, 1, 0, 0)
-  glRotatef(360.0 * cvMouseX().int.toFloat / cvWidth().int.toFloat, 0, 1, 0)
+  glRotatef(360.0 * mouseY().int.toFloat / canvasHeight().int.toFloat, 1, 0, 0)
+  glRotatef(360.0 * mouseX().int.toFloat / canvasWidth().int.toFloat, 0, 1, 0)
 
   glBegin(GL_TRIANGLES)
 
@@ -87,18 +87,18 @@ proc update() =
   glEnd()
 
 
-proc event(e: ptr ev) : int {.cdecl.} =
+proc event(e: ev) : int {.cdecl.} =
   result = 1
-  case e.evType:
+  case e.eventType:
     of cvqName: result = cast[int]("cube".cstring)
     of cvqXPos: result = 50
     of cvqYPos: result = 50
     of cvqWidth: result = 640
     of cvqHeight: result = 480
     of cveGlInit: glinit()
-    of cveResize: resize(e.evWidth, e.evHeight)
+    of cveResize: resize(e.eventWidth, e.eventHeight)
     of cveUpdate: update()
     else:
       result = 0
 
-discard cvRun event
+discard run event
